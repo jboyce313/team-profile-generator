@@ -20,7 +20,7 @@ function addManager(response) {
 }
 
 function addEngineer() {
-  return inquirer.prompt(questions.engineerQuestions).then((data) => {
+  inquirer.prompt(questions.engineerQuestions).then((data) => {
     team.engineers.push(
       new Engineer(
         data.engineerName,
@@ -29,11 +29,12 @@ function addEngineer() {
         data.engineerGithub
       )
     );
+    chooseOption();
   });
 }
 
 function addIntern() {
-  return inquirer.prompt(questions.internQuestions).then((data) => {
+  inquirer.prompt(questions.internQuestions).then((data) => {
     team.interns.push(
       new Intern(
         data.internName,
@@ -42,24 +43,27 @@ function addIntern() {
         data.internSchool
       )
     );
+    chooseOption();
   });
 }
 
-function buildTeam() {
-  inquirer
-    .prompt(questions.managerQuestions)
-    .then((response) => addManager(response))
-    .then(() => inquirer.prompt(questions.options))
-    .then((response) => {
-      if (response.choice === "Add engineer") {
-        return addEngineer();
-      } else if (response.choice === "Add intern") {
-        return addIntern();
-      } else {
-        return;
-      }
-    })
-    .then(() => console.log(team));
+function finishBuildingTeam() {
+  console.log(team);
 }
 
-buildTeam();
+function chooseOption() {
+  inquirer.prompt(questions.options).then((response) => {
+    if (response.choice === "Add engineer") {
+      addEngineer();
+    } else if (response.choice === "Add intern") {
+      addIntern();
+    } else {
+      finishBuildingTeam();
+    }
+  });
+}
+
+inquirer
+  .prompt(questions.managerQuestions)
+  .then((response) => addManager(response))
+  .then(() => chooseOption());

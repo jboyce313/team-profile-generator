@@ -67,4 +67,18 @@ const internQuestions = [
   },
 ];
 
-module.exports = { managerQuestions, engineerQuestions, internQuestions };
+const options = [
+  {
+    type: "list",
+    message: "Choose an option:",
+    choices: ["Add engineer", "Add intern", "Finish building team"],
+    name: "choice",
+  },
+];
+
+module.exports = {
+  managerQuestions,
+  engineerQuestions,
+  internQuestions,
+  options,
+};

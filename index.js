@@ -3,6 +3,9 @@ const questions = require("./src/questions");
 const Manager = require("./lib/manager");
 const Engineer = require("./lib/engineer");
 const Intern = require("./lib/intern");
+const fs = require("fs");
+const generate = require("./src/generateHTML");
+const page = require("./dist/roster.html");
 
 const team = {
   engineers: [],
@@ -47,8 +50,16 @@ function addIntern() {
 }
 
 function finishBuildingTeam() {
-  console.log(team);
+  writeToFile("./dist/roster.html");
 }
+
+function writeToFile(fileName) {
+  fs.writeFile(fileName, generate.generateHTML(team), (err) =>
+    err ? console.log(err) : console.log("Success!")
+  );
+}
+
+function addCard(member) {}
 
 function chooseOption() {
   inquirer.prompt(questions.options).then((response) => {

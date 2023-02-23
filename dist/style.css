@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+h1 {
+  text-align: center;
+  background-color: rgb(166, 11, 11);
+  color: white;
+  padding: 40px;
+  margin: 5px;
+}
+
+.roster {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.card-header {
+  background-color: aqua;
+}
+
+.card {
+  margin: 20px;
+}
